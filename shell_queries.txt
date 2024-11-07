@@ -4,3 +4,166 @@
 Github Link: https://github.com/Zughayyar/Dojo-Ninjas.git
 
 Submit your .txt file that contains all the queries you ran in the shell
+
+/// Run the shell and import your models:
+In [6]: from dojo_ninjas_app.models import Dojo
+In [7]: from dojo_ninjas_app.models import Ninja
+
+
+/// Query: Create 3 new dojos:
+In [10]: Dojo.objects.create(
+    ...: name = "Marketing",
+    ...: city = "New Jersy",
+    ...: state = "US")
+Out[10]: <Dojo: Dojo object (9)>
+In [11]: Dojo.objects.create(
+    ...: name = "Engineering",
+    ...: city = "Miami",
+    ...: state = "US")
+Out[11]: <Dojo: Dojo object (10)>
+In [12]: Dojo.objects.create(
+    ...: name = "Finance",
+    ...: city = "Miami",
+    ...: state = "US")
+Out[12]: <Dojo: Dojo object (11)>
+
+/// Query: Delete the 3 dojos you just created:
+In [13]: c = Dojo.objects.get(id=9)
+In [14]: c.delete()
+Out[14]: (1, {'dojo_ninjas_app.Dojo': 1})
+
+In [15]: c = Dojo.objects.get(id=10)
+In [16]: c.delete()
+Out[16]: (1, {'dojo_ninjas_app.Dojo': 1})
+
+In [17]: c = Dojo.objects.get(id=11)
+In [18]: c.delete()
+Out[18]: (1, {'dojo_ninjas_app.Dojo': 1})
+
+/// Query: Create 3 more dojos:
+In [19]: Dojo.objects.create(
+    ...: name = "Marketing",
+    ...: city = "New Jersy",
+    ...: state = "US")
+Out[19]: <Dojo: Dojo object (12)>
+
+In [20]: Dojo.objects.create(
+    ...: name = "Engineering",
+    ...: city = "Miami",
+    ...: state = "US")
+Out[20]: <Dojo: Dojo object (13)>
+
+In [21]: Dojo.objects.create(
+    ...: name = "Finance",
+    ...: city = "Miami",
+    ...: state = "US")
+Out[21]: <Dojo: Dojo object (14)>
+
+/// Query: Create 3 ninjas that belong to the first dojo:
+In [22]: Ninja.objects.create(
+    ...: dojo_id = Dojo.objects.get(id=12),
+    ...: first_name = "Omar" ,
+    ...: last_name = "Rayyan")
+Out[22]: <Ninja: Ninja object (10)>
+
+In [23]: Ninja.objects.create(
+    ...: dojo_id = Dojo.objects.get(id=12),
+    ...: first_name = "Sami" ,
+    ...: last_name = "Daraghmeh")
+Out[23]: <Ninja: Ninja object (11)>
+
+In [24]: Ninja.objects.create(
+    ...: dojo_id = Dojo.objects.get(id=12),
+    ...: first_name = "Yousuf" ,
+    ...: last_name = "Assaf")
+Out[24]: <Ninja: Ninja object (12)>
+
+/// Query: Create 3 ninjas that belong to the second dojo:
+In [25]: Ninja.objects.create(
+    ...: dojo_id = Dojo.objects.get(id=13),
+    ...: first_name = "Ameed" ,
+    ...: last_name = "Sawaftah")
+Out[25]: <Ninja: Ninja object (13)>
+
+In [26]: Ninja.objects.create(
+    ...: dojo_id = Dojo.objects.get(id=13),
+    ...: first_name = "Ali" ,
+    ...: last_name = "Yahia")
+Out[26]: <Ninja: Ninja object (14)>
+
+In [27]: Ninja.objects.create(
+    ...: dojo_id = Dojo.objects.get(id=13),
+    ...: first_name = "Yasser" ,
+    ...: last_name = "Zubi")
+Out[27]: <Ninja: Ninja object (15)>
+
+
+Query: Create 3 ninjas that belong to the third dojo
+In [25]: Ninja.objects.create(
+    ...: dojo_id = Dojo.objects.get(id=14),
+    ...: first_name = "John" ,
+    ...: last_name = "Wick")
+Out[25]: <Ninja: Ninja object (13)>
+
+In [26]: Ninja.objects.create(
+    ...: dojo_id = Dojo.objects.get(id=14),
+    ...: first_name = "Jorgie" ,
+    ...: last_name = "Washinton")
+Out[26]: <Ninja: Ninja object (14)>
+
+In [27]: Ninja.objects.create(
+    ...: dojo_id = Dojo.objects.get(id=14),
+    ...: first_name = "Maya" ,
+    ...: last_name = "Jameel")
+Out[27]: <Ninja: Ninja object (15)>
+
+
+/// Query: Retrieve all the ninjas from the first dojo:
+In [34]: first_dojo = Dojo.objects.get(id=12)
+In [35]: first_dojo.ninjas.all
+Out[35]: <bound method BaseManager.all of <django.db.models.fields.related_descriptors.create_reverse_many_to_one_manager.<locals>.RelatedManager object at 0x1036b4980>>
+
+
+/// Query: Retrieve all the ninjas from the last dojo:
+In [36]: last_dojo = Dojo.objects.get(id=14)
+In [37]: last_dojo.ninjas.all
+Out[37]: <bound method BaseManager.all of <django.db.models.fields.related_descriptors.create_reverse_many_to_one_manager.<locals>.RelatedManager object at 0x104ef60d0>>
+
+
+/// Query: Retrieve the last ninja's dojo:
+In [39]: last_ninja = Dojo.objects.last()
+In [41]: last_ninja_dojo = Dojo.objects.get(id = last_ninja.id)
+
+/// Add a new text field called "desc" to your Dojo class:
+class Dojo(models.Model):
+    name = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    state = models.CharField(max_length=2)
+    desc = models.TextField()
+
+/// Create and run the migration files to update the table in your database. If needed
+provide a default value of "old dojo"
+    name = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    state = models.CharField(max_length=2)
+    desc = models.TextField(default="old dojo")
+
+❯ python manage.py makemigrations 
+Migrations for 'dojo_ninjas_app':
+  dojo_ninjas_app/migrations/0002_dojo_desc.py
+    + Add field desc to dojo
+
+❯ python manage.py migrate       
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, dojo_ninjas_app, sessions
+Running migrations:
+  Applying dojo_ninjas_app.0002_dojo_desc... OK
+
+
+/// Query: Create a new dojo:
+In [8]: Dojo.objects.create(
+   ...: name = "Art",
+   ...: city = "Toronto",
+   ...: state = "Canada",
+   ...: desc = "We will be champions")
+Out[8]: <Dojo: Dojo object (18)>
