@@ -1,0 +1,6 @@
+// Assignment: Users(Shell)
+// Anas Zughayyar
+
+Github Link: https://github.com/Zughayyar/Dojo-Ninjas.git
+
+Submit your .txt file that contains all the queries you ran in the shell
