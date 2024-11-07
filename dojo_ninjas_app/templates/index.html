@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One to Many Relationships</title>
+
+    {% load static %} 
+    <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/my_css/my_style.css' %}">
+</head>
+<body>
+    <div class="nav-bar">
+        <a href="/table">Go to Table View</a>
+        <a href="/tree">Go to Tree View</a>
+    </div>
+    <div class="forms">
+        <form action="/addDojo" method="POST">
+            <div class="table-title">
+                Add a Dojo
+            </div>
+            {% csrf_token %}
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input name="dojo_name" type="text" class="form-control" aria-describedby="emailHelp" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">City</label>
+                <input name="dojo_city" type="text" class="form-control" aria-describedby="emailHelp" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">State</label>
+                <input name="dojo_state" type="text" class="form-control" aria-describedby="emailHelp" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Dojo</button>
+          </form>
+          <form action="/addNinja" method="POST">
+            <div class="table-title">
+                Add a Ninja
+            </div>
+            {% csrf_token %}
+            <div class="mb-3">
+              <label class="form-label">First Name</label>
+              <input name="ninja_first_name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+                <labelclass="form-label">Last Name</label>
+                <input name="ninja_last_name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Select A Dojo</label>
+                <select name="dojo_id" class="form-select" aria-label="Default select example" required>
+
+                    {% for i in dojos %}
+                    <option value={{i.id}} >{{ i.name }}</option>
+                    {% endfor %}
+
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Ninja</button>
+          </form>
+    </div>
+
+    <script src="{% static 'js/bootstrap.js' %}" ></script>
+</body>
+</html>

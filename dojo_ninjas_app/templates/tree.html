@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One to Many Relationships</title>
+
+    {% load static %} 
+    <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/my_css/my_style.css' %}">
+</head>
+<body>
+    <div class="nav-bar">
+        <a href="/">Back to Forms</a>
+        <a href="/table">Go to Table View</a>
+    </div>
+    <h1>All the Dojos</h1>
+    <ul>
+        {% for dojo in dojos %}
+            <li>Ninjas at the {{ dojo.name }} Dojo > {{ dojo.ninjas.count }}
+                <ul>
+                    {% for ninja in dojo.ninjas.all %}
+                    <li><em>{{ ninja.first_name }}</em></li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+        
+    <script src="{% static 'js/bootstrap.js' %}" ></script>
+</body>
+</html>
